@@ -33,6 +33,27 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		});
 	}
+
+	// Logout fetch handler: intercept logout button and perform POST to logout_ajax
+	var logoutBtn = document.getElementById('logout-btn');
+	if(logoutBtn){
+		logoutBtn.addEventListener('click', function(ev){
+			ev.preventDefault();
+			var token = this.dataset.csrf || '';
+			fetch('/Sabina/auth/logout_ajax.php', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ csrf_token: token })
+			}).then(function(resp){ return resp.json(); })
+			.then(function(json){
+				if(json && json.success){
+					window.location.href = json.redirect || '/Sabina/';
+				} else {
+					alert('Logout failed');
+				}
+			}).catch(function(){ alert('Logout failed'); });
+		});
+	}
 });
 
 /* End of script */

@@ -1,8 +1,19 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) session_start();
+$userName = $_SESSION['user_name'] ?? null;
+$cartCount = 0;
+if(!empty($_SESSION['cart']) && is_array($_SESSION['cart'])){
+    $cartCount = array_sum($_SESSION['cart']);
+}
+if(empty($_SESSION['csrf_token'])){
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(16));
+}
+?>
 <!-- Bootstrap CSS: try CDN first, fall back to local assets files -->
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="/Sabina/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/Sabina/assets/css/style.css">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
     <div class="container-fluid">
@@ -23,25 +34,35 @@
                     <a class="nav-link active" href="index.php">Home</a>
                 </li>
 
+
                 <li class="nav-item">
-                    <a class="nav-link" href="shop.php">Shop</a>
+                    <a class="nav-link" href="/Sabina/public/cart.php">Cart
+                        <?php if($cartCount > 0): ?>
+                            <span class="badge bg-secondary ms-1"><?php echo (int)$cartCount; ?></span>
+                        <?php endif; ?>
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="cart.php">Cart</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="orders.php">Orders</a>
+                    <a class="nav-link" href="/Sabina/public/order.php">My Orders</a>
                 </li>
 
             </ul>
 
             <div class="d-flex">
-
-                <a href="auth/login.php" class="btn btn-outline-primary me-2">Login</a>
-                <a href="auth/register.php" class="btn btn-primary">Register</a>
-
+                <?php if($userName): ?>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle me-2" data-bs-toggle="dropdown"><?php echo htmlspecialchars($userName); ?></button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="/Sabina/public/order.php">My Orders</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#" id="logout-btn" data-csrf="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">Logout</a></li>
+                        </ul>
+                    </div>
+                <?php else: ?>
+                    <a href="/Sabina/auth/login.php" class="btn btn-outline-primary me-2">Login</a>
+                    <a href="/Sabina/auth/register.php" class="btn btn-primary">Register</a>
+                <?php endif; ?>
             </div>
 
         </div>

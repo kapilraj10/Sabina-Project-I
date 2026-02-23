@@ -14,6 +14,7 @@ if(empty($_SESSION['csrf_token'])){
 }
 
 $message = null;
+$cur = basename($_SERVER['PHP_SELF']);
 
 // handle create
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'create'){
@@ -96,10 +97,10 @@ $categories = getAllCategories();
     <nav class="d-none d-md-block sidebar">
       <div class="px-3">
         <ul class="nav flex-column mt-3">
-          <li class="nav-item"><a class="nav-link" href="dashboard.php"><i class="bi bi-speedometer2"></i>Dashboard</a></li>
-          <li class="nav-item"><a class="nav-link" href="users.php"><i class="bi bi-people"></i>Manage Users</a></li>
-          <li class="nav-item"><a class="nav-link" href="categories.php"><i class="bi bi-tags"></i>Categories</a></li>
-          <li class="nav-item"><a class="nav-link active" href="products.php"><i class="bi bi-box-seam"></i>Products</a></li>
+          <li class="nav-item"><a class="nav-link <?php echo $cur==='dashboard.php' ? 'active' : ''; ?>" href="/Sabina/admin/dashboard.php"><i class="bi bi-speedometer2"></i>Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link <?php echo $cur==='users.php' ? 'active' : ''; ?>" href="/Sabina/admin/users.php"><i class="bi bi-people"></i>Manage Users</a></li>
+          <li class="nav-item"><a class="nav-link <?php echo $cur==='categories.php' ? 'active' : ''; ?>" href="/Sabina/admin/categories.php"><i class="bi bi-tags"></i>Categories</a></li>
+          <li class="nav-item"><a class="nav-link <?php echo $cur==='products.php' ? 'active' : ''; ?>" href="/Sabina/admin/products.php"><i class="bi bi-box-seam"></i>Products</a></li>
         </ul>
       </div>
     </nav>

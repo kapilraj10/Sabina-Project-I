@@ -18,6 +18,10 @@
 main.admin-main{
   margin-left:220px;
   padding:2rem;
+  /* Ensure main area fills viewport and scrolls independently when content is long */
+  min-height:100vh;
+  box-sizing:border-box;
+  overflow:auto;
 }
 
 .admin-card{
