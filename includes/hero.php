@@ -6,10 +6,13 @@
         <p>Smart Inventory • Seamless Sales • Simple Management</p>
 
         <div class="hero-buttons">
-            <a href="login.php" class="btn-hero primary">Login</a>
-            <a href="register.php" class="btn-hero secondary">Register</a>
+            <a href="/auth/login.php" class="btn-hero primary">Login</a>
+            <a href="/auth/register.php" class="btn-hero secondary">Register</a>
         </div>
     </div>
 </section>
 
 <script src="assets/js/hero.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>if (typeof bootstrap === 'undefined') { document.write('<script src="assets/js/bootstrap.bundle.min.js"><\/script>'); }</script>
+<script src="assets/js/script.js"></script>
