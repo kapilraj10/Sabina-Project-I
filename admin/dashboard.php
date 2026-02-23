@@ -3,8 +3,27 @@
 session_start();
 // If not admin, redirect to login
 if(empty($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin'){
-    header('Location: ../auth/login.php');
-    exit();
+  header('Location: ../auth/login.php');
+  exit();
+}
+
+// load DB for revenue stats
+require_once __DIR__ . '/../config/db.php';
+
+// Total revenue (exclude cancelled orders)
+$total_revenue = 0.0;
+$today_revenue = 0.0;
+$sqlTotal = "SELECT COALESCE(SUM(total),0) as total_revenue FROM orders WHERE status <> 'cancelled'";
+if($res = mysqli_query($conn, $sqlTotal)){
+  $row = mysqli_fetch_assoc($res);
+  $total_revenue = (float) ($row['total_revenue'] ?? 0);
+}
+
+// Today's revenue (orders created today, exclude cancelled)
+$sqlToday = "SELECT COALESCE(SUM(total),0) as today_revenue FROM orders WHERE DATE(created_at) = CURDATE() AND status <> 'cancelled'";
+if($res2 = mysqli_query($conn, $sqlToday)){
+  $row2 = mysqli_fetch_assoc($res2);
+  $today_revenue = (float) ($row2['today_revenue'] ?? 0);
 }
 ?>
 <!DOCTYPE html>
@@ -46,14 +65,16 @@ if(empty($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin'){
         <div class="row">
           <div class="col-sm-6 col-lg-3 mb-3">
             <div class="p-3 bg-light rounded">
-              <h5 class="mb-0">Users</h5>
-              <small class="text-muted">Manage registered users</small>
+              <h5 class="mb-0">Total Revenue</h5>
+              <p class="h4 mb-0">Rs .<?php echo number_format($total_revenue, 2); ?></p>
+              <small class="text-muted">All-time revenue (excluding cancelled)</small>
             </div>
           </div>
           <div class="col-sm-6 col-lg-3 mb-3">
             <div class="p-3 bg-light rounded">
-              <h5 class="mb-0">Orders</h5>
-              <small class="text-muted">View recent orders</small>
+              <h5 class="mb-0">Today's Revenue</h5>
+              <p class="h4 mb-0">RSs .<?php echo number_format($today_revenue, 2); ?></p>
+              <small class="text-muted">Revenue for <?php echo date('F j, Y'); ?> (excluding cancelled)</small>
             </div>
           </div>
         </div>
