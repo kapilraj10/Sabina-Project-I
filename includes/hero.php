@@ -6,8 +6,8 @@
         <p>Smart Inventory • Seamless Sales • Simple Management</p>
 
         <div class="hero-buttons">
-            <a href="/auth/login.php" class="btn-hero primary">Login</a>
-            <a href="/auth/register.php" class="btn-hero secondary">Register</a>
+            <a href="/Sabina/auth/login.php" class="btn-hero primary">Login</a>
+            <a href="/Sabina/auth/register.php" class="btn-hero secondary">Register</a>
         </div>
     </div>
 </section>
