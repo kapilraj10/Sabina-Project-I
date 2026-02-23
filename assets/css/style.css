@@ -63,3 +63,15 @@ body {
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
 
 /* End of custom styles */
+
+/* Categories (public) - compact card variant */
+.category-card .card-body { padding: .6rem; }
+.category-card .card-title { font-size: 1rem; margin-bottom: .35rem; }
+.category-card .card-text { font-size: .85rem; color: #555; margin-bottom: .4rem; }
+.category-img { height: 120px; object-fit: cover; }
+
+@media (max-width: 576px) {
+	.category-img { height: 100px; }
+	.category-card .card-body { padding: .5rem; }
+}
+

@@ -11,11 +11,13 @@ CREATE TABLE users(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Sample Insert User (Optional Test Data)
-INSERT INTO users(name,email,password,role)
-VALUES(
-'Admin',
-'admin@gmail.com',
-'$2y$10$examplehashedpassword',
-'admin'
-);
+
+CREATE TABLE IF NOT EXISTS `categories` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `description` TEXT,
+  `image` VARCHAR(255),
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -65,8 +65,41 @@ Store Management
 
 </nav>
 
+<?php
+// Load categories for public listing (GET only)
+require_once __DIR__ . '/../database/categories.php';
+$categories = [];
+// only call on GET
+if($_SERVER['REQUEST_METHOD'] === 'GET'){
+		$categories = getAllCategories();
+}
+?>
+
 <div class="container mt-4">
-<h1>Welcome — Public Area</h1>
+	<h1 class="mb-3">Categories</h1>
+
+	<?php if(empty($categories)): ?>
+		<div class="alert alert-secondary">No categories found.</div>
+	<?php else: ?>
+		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+			<?php foreach($categories as $cat): ?>
+			<div class="col">
+						<div class="card h-100 category-card">
+								<?php if(!empty($cat['image'])): ?>
+									<img src="<?php echo htmlspecialchars($cat['image']); ?>" class="card-img-top category-img" alt="<?php echo htmlspecialchars($cat['name']); ?>">
+								<?php else: ?>
+									<div class="bg-light d-flex align-items-center justify-content-center category-img">No image</div>
+								<?php endif; ?>
+								<div class="card-body d-flex flex-column">
+									<h5 class="card-title"><?php echo htmlspecialchars($cat['name']); ?></h5>
+									<p class="card-text text-truncate"><?php echo htmlspecialchars($cat['description']); ?></p>
+								</div>
+							</div>
+			</div>
+			<?php endforeach; ?>
+		</div>
+	<?php endif; ?>
+
 </div>
 
 <!-- Bootstrap JS (CDN with local fallback) -->
