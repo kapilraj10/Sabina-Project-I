@@ -36,7 +36,7 @@ if(empty($_SESSION['csrf_token'])){
 
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/Sabina/public/cart.php">Cart
+                    <a class="nav-link" href="/Sabina/public/checkout.php">Cart
                         <?php if($cartCount > 0): ?>
                             <span class="badge bg-secondary ms-1"><?php echo (int)$cartCount; ?></span>
                         <?php endif; ?>
