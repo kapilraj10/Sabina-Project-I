@@ -27,6 +27,7 @@ if(empty($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin'){
           <li class="nav-item"><a class="nav-link active" href="dashboard.php"><i class="bi bi-speedometer2"></i>Dashboard</a></li>
           <li class="nav-item"><a class="nav-link" href="users.php"><i class="bi bi-people"></i>Manage Users</a></li>
           <li class="nav-item"><a class="nav-link" href="categories.php"><i class="bi bi-tags"></i>Categories</a></li>
+          <li class="nav-item"><a class="nav-link" href="products.php"><i class="bi bi-box-seam"></i>Products</a></li>
         </ul>
       </div>
     </nav>
